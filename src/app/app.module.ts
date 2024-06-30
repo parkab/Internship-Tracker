@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { BrowserModule } from '@angular/platform-browser';
 
-@NgModule ({
+@NgModule({
   imports: [
-    MatSlideToggleModule,
+    BrowserModule,
+    MatSlideToggleModule
   ],
   exports: [
-    MatSlideToggleModule 
+    MatSlideToggleModule
   ]
 })
-class AppModule {}
+export class AppModule { }

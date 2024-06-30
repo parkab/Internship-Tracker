@@ -1,12 +1,13 @@
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=2.0">
+<!-- <head> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .navbar {
             background-color: #007bff;
             display: flex;
             align-items: center;
-            height: 60px;
+            vertical-align: middle;
+            /* height: 60px; */
         }
         .navbar-brand {
             color: #fff;
@@ -15,6 +16,7 @@
             margin-top: 30px;
         }
         .navbar-nav {
+            vertical-align: middle;
             margin-top: 0px;
             margin-bottom: 0px;
         }
@@ -31,25 +33,26 @@
         }
         .container-fluid {
             max-width: 1200px;
+            /* min-width: 780px; */
             padding-left:0;
             padding-right:0
         }
     </style>
-</head>
-<body>
-    <nav class="navbar navbar-expand-sm">
+<!-- </head> -->
+<!-- <body> -->
+    <div class="navbar navbar-expand-sm">
         <div class="container-fluid px-0">
-            <a class="navbar-brand" href="#">My Internships</a>
+            <a class="navbar-brand" href="/">My Internships</a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Home</a>
+                        <a class="nav-link" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Add New Internships</a>
+                        <a class="nav-link" href="/">Add New Internships</a>
                     </li>
                 </ul>
             </div>
         </div>
-    </nav>
-</body>
+    </div>
+<!-- </body> -->

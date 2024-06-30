@@ -1,4 +1,4 @@
-<head>
+<!-- <head> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -33,11 +33,35 @@
             padding: 0.75rem;
             vertical-align: middle;
         }
+
+        .btn-edit {
+            color: #007bff;
+            background-color: #fff;
+            border: 1px solid #007bff;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .btn-edit:hover {
+            color: #fff;
+            background-color: #007bff;
+        }
+        .btn-delete {
+            color: #dc3545;
+            background-color: #fff;
+            border: 1px solid #dc3545;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .btn-delete:hover {
+            color: #fff;
+            background-color: #dc3545;
+        }
+        td button {
+            margin: 0 0.25rem;
+        }
     </style>
-</head>
-<body>
+<!-- </head> -->
+<!-- <body> -->
     <div class="container mt-4">
-        <h2>Internships</h2>
+        <!-- <h2>Welcome</h2> -->
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -49,21 +73,17 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Dec 25</td>
-                    <td>Waiting</td>
-                    <td>Amazon</td>
-                    <td>SWE</td>
-                    <td>No Action</td>
-                </tr>
-                <tr>
-                    <td>Dec 25(2)</td>
-                    <td>Waiting(2)</td>
-                    <td>Amazon(2)</td>
-                    <td>SWE(2)</td>
-                    <td>No Action(2)</td>
+                <tr *ngFor="let internship of internships; let i = index">
+                    <td>{{ internship.date }}</td>
+                    <td>{{ internship.status }}</td>
+                    <td>{{ internship.company }}</td>
+                    <td>{{ internship.role }}</td>
+                    <td>
+                        <button type="button" class="btn btn-edit">Edit</button>
+                        <button type="button" (click)="onDelete(i)" class="btn btn-delete">Delete</button>
+                    </td>
                 </tr>
             </tbody>
         </table>
     </div>
-</body>
+<!-- </body> -->
