@@ -1,1 +1,70 @@
-<p>internship-form works!</p>
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+        <div class="form-container p-4">
+            <form (ngSubmit)="onSubmit()" [formGroup]="internshipForm">
+                <div class="form-group">
+                    <label for="date">Date Applied</label>
+                    <input type="text" class="form-control" formControlName="date">
+
+                    <label for="status">Status</label>
+                    <select class="form-control" formControlName="status">
+                        <option value="Waiting">Waiting</option>
+                        <option value="Accepted">Accepted</option>
+                        <option value="Rejected">Rejected</option>
+                    </select>
+
+                    <label for="company">Company</label>
+                    <input type="text" class="form-control" formControlName="company">
+
+                    <label for="role">Role</label>
+                    <input type="text" class="form-control" formControlName="role">
+
+                    <label for="notes">Notes</label>
+                    <textarea class="form-control" formControlName="notes" rows="4"></textarea>
+
+                </div>
+                <button [disabled]="!internshipForm.valid" class="btn btn-submit">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .form-container {
+        background-color: #007bff;
+        border-radius: 8px;
+    }
+
+    label {
+        color: #fff;
+        font-size: 1.2rem;
+        margin-top: 1rem;
+    }
+
+    .form-control {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+    }
+
+    .btn-submit {
+        color: #fff;
+        background-color: #0056b3;
+        font-size: 1.2rem;
+        border: none;
+        padding: 0.5rem 2rem;
+        margin-top: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .btn-submit[disabled] {
+        color: #fff;
+        background-color: #0056b3;
+        opacity: 0.6;
+    }
+
+    .btn-submit:hover:not([disabled]) {
+        color: #0056b3;
+        background-color: #fff;
+    }
+</style>

@@ -79,7 +79,7 @@
                     <td>{{ internship.company }}</td>
                     <td>{{ internship.role }}</td>
                     <td>
-                        <button type="button" class="btn btn-edit">Edit</button>
+                        <button type="button" (click)="onEdit(i)" class="btn btn-edit">Edit and Notes</button>
                         <button type="button" (click)="onDelete(i)" class="btn btn-delete">Delete</button>
                     </td>
                 </tr>
