@@ -1,12 +1,10 @@
-import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
 import { Internship } from "./internship.model";
 
 @Injectable({providedIn:"root"})
 export class InternshipDataService{
-    
-    constructor(private http: HttpClient){}
+    [x: string]: any;
     
     internshipSubject = new Subject<Internship[]>();
 
@@ -22,13 +20,6 @@ export class InternshipDataService{
     onAddInternship(internship: Internship){
         this.internships.push(internship);
         this.internshipSubject.next(this.internships);
-    }
-
-    getInternshipEntries(){
-        this.http.get<{internships: Internship[]}>('http://localhost:3000/internships').subscribe((jsonData) => {
-            this.internships = jsonData.internships;
-            this.internshipSubject.next(this.internships);
-        })
     }
 
     getInternshipEntry(index: number){
