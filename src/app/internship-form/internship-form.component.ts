@@ -44,7 +44,7 @@ export class InternshipFormComponent implements OnInit {
 
   onSubmit(){
     //console.log(this.internshipForm)
-    const newInternship = new Internship(this.internshipForm.value.date, this.internshipForm.value.status, this.internshipForm.value.company, this.internshipForm.value.role, this.internshipForm.value.notes);
+    const newInternship = new Internship(1, this.internshipForm.value.date, this.internshipForm.value.status, this.internshipForm.value.company, this.internshipForm.value.role, this.internshipForm.value.notes);
     
     if(this.editMode){
       this.internshipDataService.onUpdateInternship(this.paramId, newInternship)

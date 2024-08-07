@@ -21,10 +21,13 @@ export class InternshipsComponent implements OnInit, OnDestroy{
   constructor(private internshipDataService: InternshipDataService, private router: Router) {}
 
   ngOnInit(): void {
+
     this.internshipSubscription = this.internshipDataService.internshipSubject.subscribe(internships => {
       this.internships = internships;
     });
-    this.internships = this.internshipDataService.internships;
+
+    this.internshipDataService.getInternshipEntries();
+    //this.internships = this.internshipDataService.internships;
   }
   
   ngOnDestroy(): void {
