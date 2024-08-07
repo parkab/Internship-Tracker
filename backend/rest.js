@@ -49,6 +49,17 @@ app.delete('/remove-internship/:id', (req, res) =>{
     })
 })
 
+app.put('/update-internship/:id', (req, res) =>{
+    const index = internships.findIndex(el =>{
+        return el.id == req.params.id;
+    })
+
+    internships[index] = {id: req.body.id, date: req.body.date, status: req.body.status, company: req.body.company, role: req.body.role, notes: req.body.notes};
+    res.status(200).json({
+        message: 'update complete'
+    })
+})
+
 app.get('/internships', (req, res, next) => {
     res.json({'internships': internships});
     //res.send('express said hi');

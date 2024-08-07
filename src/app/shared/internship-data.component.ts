@@ -42,8 +42,12 @@ export class InternshipDataService{
         // this.internshipSubject.next(this.internships);
     }
 
-    getInternshipEntry(index: number){
-        return {...this.internships[index]};
+    getInternshipEntry(id: number){
+        // return {...this.internships[index]};
+        const index = this.internships.findIndex((el) =>{
+            return el.id == id;
+        })
+        return this.internships[index];
     }
 
     getInternshipEntries(){
@@ -53,8 +57,12 @@ export class InternshipDataService{
         })
     }
 
-    onUpdateInternship(paramId: number, internship: Internship){
-        this.internships[paramId] = internship;
-        this.internshipSubject.next(this.internships);
+    onUpdateInternship(id: number, internship: Internship){
+        // this.internships[paramId] = internship;
+        // this.internshipSubject.next(this.internships);
+        this.http.put<{message: string}>('http://localhost:3000/update-internship/' + id, internship).subscribe((jsonData) => {
+            console.log(jsonData.message);
+            this.getInternshipEntries();
+        })
     }
 }
