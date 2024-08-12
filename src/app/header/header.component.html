@@ -10,16 +10,40 @@
             vertical-align: middle;
             /* height: 60px; 
         } */
+        .top-section {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 90px; /* Fixed height */
+        background-color: #007bff;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        }
+        
+        .navbar {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: transparent;
+            padding: 0;
+        }
         .navbar-brand {
             color: #fff;
             font-size: 2rem;
             font-weight: bold;
-            margin-top: 30px;
+            margin: 30px;
         }
         .navbar-nav {
-            vertical-align: middle;
+            /* vertical-align: middle;
             margin-top: 0px;
-            margin-bottom: 0px;
+            margin-bottom: 0px; */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
         }
         .nav-link {
             color: #fff;
@@ -35,8 +59,7 @@
         .container-fluid {
             max-width: 2000px;
             /* min-width: 780px; */
-            padding-left:0;
-            padding-right:0
+            padding: 0;
         }
     </style>
 <!-- </head> -->

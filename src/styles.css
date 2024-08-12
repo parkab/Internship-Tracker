@@ -9,14 +9,21 @@ body.mat-typography {
     position: relative;
 }
 
+.top-bar-wrapper {
+    position: relative; /* Wrapper to handle the top section */
+}
+
 .top-section {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 90px; /* 10% of the viewport height */
+    height: 90px; /* Fixed height */
     background-color: #007bff;
     z-index: 1; /* Ensure it overlaps other content */
+    display: flex; /* Use flexbox to align items */
+    align-items: center; /* Vertically center the navbar */
+    justify-content: space-between; /* Adjust this if you want space between items or centered */
 }
 
 app-root {
@@ -26,8 +33,9 @@ app-root {
 }
 
 .navbar {
+    width: 100%; /* Make sure navbar takes full width */
     position: relative;
-    z-index: 3; /* Ensure it is above the top-section */
+    z-index: 2; /* Ensure it is above the top-section */
     background-color: transparent; /* Ensure it blends with the top-section */
 }
 
@@ -40,4 +48,17 @@ app-root {
     background-color: #fff;
     border-radius: 5px;
     transition: background-color 0.3s, color 0.3s;
+}
+
+.nav-link {
+    color: #fff;
+    font-size: 1.25rem;
+    margin-right: 1rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 5px; /* Ensure rounded corners */
+    outline: none; /* Prevent focus outline */
+}
+
+.nav-link:focus {
+    outline: none; /* Prevent any default outline on focus */
 }

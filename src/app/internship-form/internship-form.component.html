@@ -1,27 +1,34 @@
 <div class="row justify-content-center mt-5">
-    <div class="col-md-6">
-        <div class="form-container p-4">
+    <div class="col-md-10"> <!-- Increased from col-md-8 to col-md-10 -->
+        <div class="form-container p-3"> <!-- Reduced padding -->
             <form (ngSubmit)="onSubmit()" [formGroup]="internshipForm">
+                <div class="form-group row"> <!-- Row for placing elements side by side -->
+                    <div class="col-md-6">
+                        <label for="date">Date Applied</label>
+                        <input type="text" class="form-control" formControlName="date">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="status">Status</label>
+                        <select class="form-control" formControlName="status">
+                            <option value="Waiting">Waiting</option>
+                            <option value="Accepted">Accepted</option>
+                            <option value="Rejected">Rejected</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        <label for="company">Company</label>
+                        <input type="text" class="form-control" formControlName="company">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="role">Role</label>
+                        <input type="text" class="form-control" formControlName="role">
+                    </div>
+                </div>
                 <div class="form-group">
-                    <label for="date">Date Applied</label>
-                    <input type="text" class="form-control" formControlName="date">
-
-                    <label for="status">Status</label>
-                    <select class="form-control" formControlName="status">
-                        <option value="Waiting">Waiting</option>
-                        <option value="Accepted">Accepted</option>
-                        <option value="Rejected">Rejected</option>
-                    </select>
-
-                    <label for="company">Company</label>
-                    <input type="text" class="form-control" formControlName="company">
-
-                    <label for="role">Role</label>
-                    <input type="text" class="form-control" formControlName="role">
-
                     <label for="notes">Notes</label>
-                    <textarea class="form-control" formControlName="notes" rows="4"></textarea>
-
+                    <textarea class="form-control" formControlName="notes" rows="2"></textarea> <!-- Reduced rows -->
                 </div>
                 <button [disabled]="!internshipForm.valid" class="btn btn-submit">Submit</button>
             </form>
@@ -33,17 +40,18 @@
     .form-container {
         background-color: #007bff;
         border-radius: 8px;
+        padding: 1.5rem; /* Reduced padding */
     }
 
     label {
         color: #fff;
-        font-size: 1.2rem;
-        margin-top: 1rem;
+        font-size: 1rem; /* Reduced font size */
+        margin-top: 0.5rem; /* Reduced margin */
     }
 
     .form-control {
-        font-size: 1.2rem;
-        margin-bottom: 1rem;
+        font-size: 1rem; /* Reduced font size */
+        margin-bottom: 0.5rem; /* Reduced margin */
     }
 
     .btn-submit {
@@ -52,7 +60,7 @@
         font-size: 1.2rem;
         border: none;
         padding: 0.5rem 2rem;
-        margin-top: 1rem;
+        margin-top: 0.5rem; /* Reduced margin */
         cursor: pointer;
         transition: background-color 0.3s, color 0.3s;
     }
