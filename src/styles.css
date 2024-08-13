@@ -10,7 +10,7 @@ body.mat-typography {
 }
 
 .top-bar-wrapper {
-    position: relative; /* Wrapper to handle the top section */
+    position: relative;
 }
 
 .top-section {
@@ -18,29 +18,29 @@ body.mat-typography {
     top: 0;
     left: 0;
     width: 100%;
-    height: 90px; /* Fixed height */
+    height: 90px;
     background-color: #007bff;
-    z-index: 1; /* Ensure it overlaps other content */
-    display: flex; /* Use flexbox to align items */
-    align-items: center; /* Vertically center the navbar */
-    justify-content: space-between; /* Adjust this if you want space between items or centered */
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 app-root {
     position: relative;
-    z-index: 2; /* Ensure it is above the top-section */
-    padding-top: 90px; /* Push content below the top-section */
+    z-index: 2;
+    padding-top: 90px;
 }
 
 .navbar {
-    width: 100%; /* Make sure navbar takes full width */
+    width: 100%;
     position: relative;
-    z-index: 2; /* Ensure it is above the top-section */
-    background-color: transparent; /* Ensure it blends with the top-section */
+    z-index: 2; 
+    background-color: transparent;
 }
 
 .navbar-brand, .nav-link {
-    color: #fff; /* Ensure text is visible on blue background */
+    color: #fff;
 }
 
 .nav-link:hover {
@@ -55,10 +55,10 @@ app-root {
     font-size: 1.25rem;
     margin-right: 1rem;
     transition: background-color 0.3s ease, color 0.3s ease;
-    border-radius: 5px; /* Ensure rounded corners */
-    outline: none; /* Prevent focus outline */
+    border-radius: 5px;
+    outline: none; 
 }
 
 .nav-link:focus {
-    outline: none; /* Prevent any default outline on focus */
+    outline: none;
 }

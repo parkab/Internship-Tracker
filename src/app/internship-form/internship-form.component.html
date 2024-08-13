@@ -1,8 +1,8 @@
 <div class="row justify-content-center mt-5">
-    <div class="col-md-10"> <!-- Increased from col-md-8 to col-md-10 -->
-        <div class="form-container p-3"> <!-- Reduced padding -->
+    <div class="col-md-10">
+        <div class="form-container p-3">
             <form (ngSubmit)="onSubmit()" [formGroup]="internshipForm">
-                <div class="form-group row"> <!-- Row for placing elements side by side -->
+                <div class="form-group row">
                     <div class="col-md-6">
                         <label for="date">Date Applied</label>
                         <input type="text" class="form-control" formControlName="date">
@@ -28,7 +28,7 @@
                 </div>
                 <div class="form-group">
                     <label for="notes">Notes</label>
-                    <textarea class="form-control" formControlName="notes" rows="2"></textarea> <!-- Reduced rows -->
+                    <textarea class="form-control" formControlName="notes" rows="2"></textarea>
                 </div>
                 <button [disabled]="!internshipForm.valid" class="btn btn-submit">Submit</button>
             </form>
@@ -40,18 +40,18 @@
     .form-container {
         background-color: #007bff;
         border-radius: 8px;
-        padding: 1.5rem; /* Reduced padding */
+        padding: 1.5rem;
     }
 
     label {
         color: #fff;
-        font-size: 1rem; /* Reduced font size */
-        margin-top: 0.5rem; /* Reduced margin */
+        font-size: 1rem;
+        margin-top: 0.5rem;
     }
 
     .form-control {
-        font-size: 1rem; /* Reduced font size */
-        margin-bottom: 0.5rem; /* Reduced margin */
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
     }
 
     .btn-submit {
@@ -60,7 +60,7 @@
         font-size: 1.2rem;
         border: none;
         padding: 0.5rem 2rem;
-        margin-top: 0.5rem; /* Reduced margin */
+        margin-top: 0.5rem;
         cursor: pointer;
         transition: background-color 0.3s, color 0.3s;
     }

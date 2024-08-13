@@ -29,14 +29,14 @@ export class InternshipDataService{
 
     onAddInternship(internship: Internship){
 
-        this.http.get<{maxId: string}>('http://localhost:3000/max-id').subscribe((jsonData) => {
-            internship.id = jsonData.maxId + 1;
+        // this.http.get<{maxId: string}>('http://localhost:3000/max-id').subscribe((jsonData) => {
+        //     internship.id = jsonData.maxId + 1;
 
             this.http.post<{message: string}>('http://localhost:3000/add-internship', internship).subscribe((res) => {
                 console.log(internship);
                 this.getInternshipEntries();
             })
-        })
+        // })
 
         // this.internships.push(internship);
         // this.internshipSubject.next(this.internships);

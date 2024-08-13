@@ -2,9 +2,14 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const InternshipEntryModel = require('./entry-schema');
 const mongoose = require('mongoose');
+require('dotenv').config();
 
 const app = express();
-mongoose.connect('mongodb+srv://pkabaria77:Qx0c0DRUbpblpb2Z@internshiptracker.or0zw.mongodb.net/internshipsdb?retryWrites=true&w=majority&appName=internshiptracker')
+
+const dbUser = process.env.MONGO_DB_USER;
+const dbPassword = process.env.MONGO_DB_PASSWORD;
+
+mongoose.connect('mongodb+srv://' + dbUser + ':' + dbPassword + '@internshiptracker.or0zw.mongodb.net/internshipsdb?retryWrites=true&w=majority&appName=internshiptracker')
     .then(() => {
         console.log("connected to mongodb")
     })
@@ -12,10 +17,10 @@ mongoose.connect('mongodb+srv://pkabaria77:Qx0c0DRUbpblpb2Z@internshiptracker.or
         console.log("failed to connect to mongodb");
     })
 
-internships = [
-    {id: 1, date: "date1", status: "status1", company: "company1", role: "role1", notes: "notes2"},
-    {id: 2, date: "date11", status: "status11", company: "company11", role: "role11", notes: "notes22"}
-];
+// internships = [
+//     {id: 1, date: "date1", status: "status1", company: "company1", role: "role1", notes: "notes2"},
+//     {id: 2, date: "date11", status: "status11", company: "company11", role: "role11", notes: "notes22"}
+// ];
 
 app.use(bodyParser.json());
 
@@ -26,15 +31,15 @@ app.use((req, res, next) =>{
     next();
 })
 
-app.get('/max-id', (req, res) =>{
-    var max = 0;
-    for (var i = 0; i < internships.length; i++){
-        if (max < internships[i].id){
-            max = internships[i].id;
-        }
-    }
-    res.json({maxId: max});
-})
+// app.get('/max-id', (req, res) =>{
+//     var max = 0;
+//     for (var i = 0; i < internships.length; i++){
+//         if (max < internships[i].id){
+//             max = internships[i].id;
+//         }
+//     }
+//     res.json({maxId: max});
+// })
 
 // app.use((req, res, next) => {
 //     console.log('tes2');
