@@ -16,7 +16,7 @@ export class InternshipFormComponent implements OnInit {
   internshipForm: FormGroup;
   editMode = false;
   internship: Internship;
-  paramId: number;
+  paramId: string;
 
   constructor(private internshipDataService: InternshipDataService, private router: Router, private activatedRoute: ActivatedRoute){}
 
@@ -25,7 +25,7 @@ export class InternshipFormComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe(paramMap => {
       if (paramMap.has('id')){
         this.editMode = true;
-        this.paramId = +paramMap.get('id')!;
+        this.paramId = paramMap.get('id')!;
         this.internship = this.internshipDataService.getInternshipEntry(this.paramId);
       }
       else{
@@ -44,10 +44,10 @@ export class InternshipFormComponent implements OnInit {
 
   onSubmit(){
     //console.log(this.internshipForm)
-    const newInternship = new Internship(1, this.internshipForm.value.date, this.internshipForm.value.status, this.internshipForm.value.company, this.internshipForm.value.role, this.internshipForm.value.notes);
+    const newInternship = new Internship('', this.internshipForm.value.date, this.internshipForm.value.status, this.internshipForm.value.company, this.internshipForm.value.role, this.internshipForm.value.notes);
     
     if(this.editMode){
-      newInternship.id = +this.paramId;
+      newInternship.id = this.paramId;
       this.internshipDataService.onUpdateInternship(this.paramId, newInternship)
     }
     else{

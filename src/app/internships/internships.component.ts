@@ -34,12 +34,12 @@ export class InternshipsComponent implements OnInit, OnDestroy{
     this.internshipSubscription.unsubscribe();
   }
 
-  onDelete(index: number){
+  onDelete(index: string){
     //console.log(index);
     this.internshipDataService.onDelete(index);
   }
 
-  onEdit(index: number){
+  onEdit(index: string){
     this.router.navigate(["edit", index]);
   }
 
