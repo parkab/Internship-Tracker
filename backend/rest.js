@@ -2,6 +2,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const InternshipEntryModel = require('./entry-schema');
 const mongoose = require('mongoose');
+
+const passport = require('passport');
+const session = require('express-session');
+const crypto = require('crypto'); // Import crypto module
+const User = require('./user.js'); // Assuming you have a User model
+
 require('dotenv').config();
 
 const app = express();
@@ -24,6 +30,10 @@ mongoose.connect('mongodb+srv://' + dbUser + ':' + dbPassword + '@internshiptrac
 
 app.use(bodyParser.json());
 
+app.use(session({ secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: false }));
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use((req, res, next) =>{
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
@@ -45,6 +55,79 @@ app.use((req, res, next) =>{
 //     console.log('tes2');
 //     next();
 // })
+
+// Helper functions
+const scrypt = crypto.scrypt;
+const generateSalt = () => crypto.randomBytes(16).toString('hex');
+
+const hashPassword = (password, salt, callback) => {
+    scrypt(password, salt, 64, (err, derivedKey) => {
+        if (err) return callback(err);
+        callback(null, derivedKey.toString('hex'));
+    });
+};
+
+const verifyPassword = (password, salt, hashedPassword, callback) => {
+    hashPassword(password, salt, (err, hash) => {
+        if (err) return callback(err);
+        callback(null, hash === hashedPassword);
+    });
+};
+
+// Routes
+app.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        // Find the user by email
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(400).json({ message: 'Invalid email or password' });
+        }
+
+        // Verify the password
+        verifyPassword(password, user.salt, user.password, (err, isMatch) => {
+            if (err) return res.status(500).json({ message: 'Server error', error: err });
+            if (!isMatch) return res.status(400).json({ message: 'Invalid email or password' });
+
+            // If password matches, consider the user authenticated
+            res.status(200).json({ message: 'Login successful' });
+        });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error });
+    }
+});
+
+app.post('/register', async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        const salt = generateSalt();
+        hashPassword(password, salt, async (err, hashedPassword) => {
+            if (err) return res.status(500).json({ message: 'Server error', error: err });
+
+            const user = new User({
+                email,
+                password: hashedPassword,
+                salt
+            });
+
+            await user.save();
+            res.status(201).json({ message: 'User registered successfully' });
+        });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error });
+    }
+});
+
+app.post('/logout', (req, res) => {
+    req.session.destroy(err => {
+      if (err) {
+        return res.status(500).json({ message: 'Failed to logout', error: err });
+      }
+      res.status(200).json({ message: 'Logout successful' });
+    });
+  });
 
 app.post('/add-internship', (req, res) =>{
 

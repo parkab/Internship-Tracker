@@ -53,6 +53,6 @@ export class InternshipFormComponent implements OnInit {
     else{
       this.internshipDataService.onAddInternship(newInternship);
     }
-    this.router.navigateByUrl("");
+    this.router.navigateByUrl("/dashboard");
   }
 }

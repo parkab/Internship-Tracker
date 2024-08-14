@@ -17,6 +17,7 @@ export class LandingPageComponent implements OnInit{
   // password: string = '';
 
   loginForm: FormGroup;
+  registerForm: FormGroup;
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -29,11 +30,16 @@ export class LandingPageComponent implements OnInit{
 
     this.loginForm = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null, [Validators.required, Validators.minLength(3)]),
+      password: new FormControl(null, [Validators.required, Validators.minLength(6)]),
     });
+
+    // this.registerForm = new FormGroup({
+    //   email: new FormControl(null, [Validators.required, Validators.email]),
+    //   password: new FormControl(null, [Validators.required, Validators.minLength(6)]),
+    // });
   }
 
-  onSubmit(): void {
+  onLoginSubmit(): void {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
       this.authService.login(email, password).subscribe({
@@ -44,11 +50,7 @@ export class LandingPageComponent implements OnInit{
     }
   }
 
-  loginWithGoogle(): void {
-    this.authService.loginWithGoogle().subscribe({
-      next: () => this.router.navigate(['/dashboard']),
-      error: (error) => console.error('Google login failed', error),
-      complete: () => console.log('Google login request completed')
-    });
+  redirectToRegister(): void {
+    this.router.navigate(['/register']);
   }
 }

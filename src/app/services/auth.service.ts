@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000/api'; // Replace with your backend URL
+  [x: string]: any;
+  private apiUrl = 'http://localhost:3000'; // Replace with your backend URL
 
   constructor(private http: HttpClient) {}
 
@@ -14,12 +15,12 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/login`, { email, password });
   }
 
-  loginWithGoogle(): Observable<any> {
-    // Redirect to the backend Google login endpoint
-    window.location.href = `${this.apiUrl}/auth/google`;
-    return new Observable(observer => {
-      observer.next();
-      observer.complete();
-    });
+  register(email: string, password: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register`, { email, password });
+  }
+
+  logout(): Observable<any> {
+    localStorage.removeItem('authToken');
+    return this.http.post(`${this.apiUrl}/logout`, {});
   }
 }
