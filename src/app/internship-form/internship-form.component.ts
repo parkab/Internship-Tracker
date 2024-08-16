@@ -72,4 +72,8 @@ export class InternshipFormComponent implements OnInit {
     }
     this.router.navigateByUrl("/dashboard");
   }
+
+  cancelForm(){
+    this.router.navigateByUrl("/dashboard");
+  }
 }

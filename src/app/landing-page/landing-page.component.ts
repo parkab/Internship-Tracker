@@ -49,7 +49,7 @@ export class LandingPageComponent implements OnInit{
         },
         error: (error) => {
           console.error('Login failed', error);
-          this.loginError = 'Login failed. Please check your credentials.';
+          this.loginError = 'Login failed! Please check your email and password.';
         },
         complete: () => console.log('Login request completed')
       });

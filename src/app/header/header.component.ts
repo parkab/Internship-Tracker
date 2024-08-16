@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.router.events.subscribe(() => {
-      this.showButtons = this.router.url === '/dashboard';
+      this.showButtons = (this.router.url !== '/login');
     });
   }
 

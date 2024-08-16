@@ -1,0 +1,65 @@
+h2 {
+    color: #007bff;
+    margin-bottom: 1rem;
+}
+
+.table {
+    margin-top: 3rem;
+    border: 1px solid #007bff;
+    border-radius: 12px;
+    overflow: hidden;
+    border-spacing: 0;
+}
+
+.table th, .table td {
+    border: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.table th {
+    background-color: #007bff;
+    color: #fff;
+    text-align: center;
+    padding: 0.75rem;
+}
+
+.table td {
+    text-align: center;
+    padding: 0.75 rem;
+    border-top: 1px solid #007bff;
+    vertical-align: middle;
+}
+
+.table tbody tr:hover {
+    background-color: #f1f1f1;
+    transition: background-color 0.3s;
+}
+
+.btn-edit {
+    color: #007bff;
+    background-color: #fff;
+    border: 1px solid #007bff;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-edit:hover {
+    color: #fff;
+    background-color: #007bff;
+}
+
+.btn-delete {
+    color: #dc3545;
+    background-color: #fff;
+    border: 1px solid #dc3545;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-delete:hover {
+    color: #fff;
+    background-color: #dc3545;
+}
+
+td button {
+    margin: 0 0.25rem;
+}
