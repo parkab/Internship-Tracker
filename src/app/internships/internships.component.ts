@@ -14,7 +14,7 @@ import { Internship } from '../shared/internship.model';
 })
 export class InternshipsComponent implements OnInit, OnDestroy{
 
-  internships: Internship[];
+  internships: Internship[] = [];
 
   internshipSubscription = new Subscription();
 

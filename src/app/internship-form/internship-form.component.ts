@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 import { InternshipDataService } from '../shared/internship-data.component';
 import { Internship } from '../shared/internship.model';
 
@@ -18,7 +19,7 @@ export class InternshipFormComponent implements OnInit {
   internship: Internship;
   paramId: string;
 
-  constructor(private internshipDataService: InternshipDataService, private router: Router, private activatedRoute: ActivatedRoute){}
+  constructor(private internshipDataService: InternshipDataService, private router: Router, private activatedRoute: ActivatedRoute, private authService: AuthService){}
 
   ngOnInit(): void {
 
@@ -43,14 +44,30 @@ export class InternshipFormComponent implements OnInit {
   }
 
   onSubmit(){
+
+    if (!this.authService.getToken()) {
+      //console.log('hi2');
+      this.router.navigateByUrl('/login');
+      return;
+    }
+
+    const userId = this.authService.getToken();
+
+    if (!userId) {
+      console.error('User ID is not available');
+      return;
+    }
+
     //console.log(this.internshipForm)
-    const newInternship = new Internship('', this.internshipForm.value.date, this.internshipForm.value.status, this.internshipForm.value.company, this.internshipForm.value.role, this.internshipForm.value.notes);
+    const newInternship = new Internship('', this.internshipForm.value.date, this.internshipForm.value.status, this.internshipForm.value.company, this.internshipForm.value.role, this.internshipForm.value.notes, userId);
     
     if(this.editMode){
-      newInternship.id = this.paramId;
+      newInternship._id = this.paramId;
+      newInternship.user = userId;
       this.internshipDataService.onUpdateInternship(this.paramId, newInternship)
     }
     else{
+      newInternship.user = userId;
       this.internshipDataService.onAddInternship(newInternship);
     }
     this.router.navigateByUrl("/dashboard");

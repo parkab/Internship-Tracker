@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common'; // Import CommonModule
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -17,7 +17,8 @@ export class LandingPageComponent implements OnInit{
   // password: string = '';
 
   loginForm: FormGroup;
-  registerForm: FormGroup;
+  loginError: string | null = null;
+  //registerForm: FormGroup;
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -43,8 +44,13 @@ export class LandingPageComponent implements OnInit{
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
       this.authService.login(email, password).subscribe({
-        next: () => this.router.navigate(['/dashboard']),
-        error: (error) => console.error('Login failed', error),
+        next: () => {
+          this.router.navigate(['/dashboard']);
+        },
+        error: (error) => {
+          console.error('Login failed', error);
+          this.loginError = 'Login failed. Please check your credentials.';
+        },
         complete: () => console.log('Login request completed')
       });
     }

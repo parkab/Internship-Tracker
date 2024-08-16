@@ -21,5 +21,10 @@
 
     <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Login</button>
     <button type="button" class="btn btn-secondary" (click)="redirectToRegister()">New User?</button>
+
+    <!-- Optional: Display login error message -->
+    <div *ngIf="loginError" class="alert alert-danger mt-2">
+      {{ loginError }}
+    </div>
   </form>
 </div>

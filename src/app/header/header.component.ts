@@ -17,7 +17,6 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.router.events.subscribe(() => {
-      // Check if the current route is '/dashboard'
       this.showButtons = this.router.url === '/dashboard';
     });
   }
@@ -25,7 +24,6 @@ export class HeaderComponent implements OnInit {
   logout(): void {
     this.authService.logout().subscribe({
       next: () => {
-        // Redirect to login page after successful logout
         this.router.navigate(['/login']);
       },
       error: (error) => {
