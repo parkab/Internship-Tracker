@@ -24,7 +24,6 @@ label {
     padding: 0.5rem 2rem;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
-    width: 100%;
 }
 
 .btn-submit[disabled] {
@@ -36,4 +35,19 @@ label {
 .btn-submit:hover:not([disabled]) {
     color: #0056b3;
     background-color: #fff;
+}
+
+.btn-secondary {
+    background-color: #0056b3;
+    color: #fff;
+    font-size: 1.2rem;
+    border: none;
+    padding: 0.5rem 2rem;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-secondary:hover {
+    background-color: #fff;
+    color: #0056b3;
 }

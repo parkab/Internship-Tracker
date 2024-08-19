@@ -158,6 +158,13 @@ app.post('/register', async (req, res) => {
     const { email, password } = req.body;
 
     try {
+
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            //return res.status(409).json({ message: 'User already registered' })
+            return res.status(400).json({ message: info.message || 'User already registered' });
+        }
+
         const salt = generateSalt();
         hashPassword(password, salt, async (err, hashedPassword) => {
             if (err) return res.status(500).json({ message: 'Server error', error: err });

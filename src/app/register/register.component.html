@@ -20,7 +20,14 @@
               </div>
           </div>
 
-          <button type="submit" class="btn btn-submit" [disabled]="registerForm.invalid">Register</button>
+          <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-submit" [disabled]="registerForm.invalid">Register</button>
+            <button type="button" class="btn btn-secondary" (click)="redirectToLogin()">Back to Login</button>
+          </div>
+
+          <div *ngIf="registerError" class="alert alert-danger mt-2">
+            {{ registerError }}
+          </div>
       </form>
     </div>
   </div>

@@ -14,6 +14,7 @@ import { AuthService } from '../services/auth.service';
 export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
+  registerError: string | null = null;
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -29,9 +30,16 @@ export class RegisterComponent implements OnInit {
       const { email, password } = this.registerForm.value;
       this.authService.register(email, password).subscribe({
         next: () => this.router.navigate(['/login']),
-        error: (error) => console.error('Registration failed', error),
+        error: (error) => {
+          console.error('Registration failed', error);
+          this.registerError = 'Registration failed! User already registered.';
+        },
         complete: () => console.log('Registration request completed')
       });
     }
+  }
+
+  redirectToLogin(): void {
+    this.router.navigate(['/login']);
   }
 }
