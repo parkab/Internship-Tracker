@@ -9,6 +9,7 @@ const MongoStore = require('connect-mongo');
 const crypto = require('crypto');
 const User = require('./user.js');
 const passportConfig = require('./passport.js');
+const cors = require('cors');
 
 require('dotenv').config();
 
@@ -38,10 +39,24 @@ const sessionStore = MongoStore.create({
 //     {id: 2, date: "date11", status: "status11", company: "company11", role: "role11", notes: "notes22"}
 // ];
 
-const cors = require('cors');
+const allowedOrigins = [
+    'http://localhost:4200',
+    'https://internship-tracker-git-main-parkabs-projects.vercel.app'
+];
+
+// app.use(cors({
+//     origin: 'http://localhost:4200',
+//     credentials: true
+// }));
 
 app.use(cors({
-    origin: 'http://localhost:4200',
+    origin: function (origin, callback) {
+        if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     credentials: true
 }));
 
