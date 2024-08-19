@@ -60,15 +60,19 @@ app.use(cors({
     credentials: true
 }));
 
+//const isProduction = process.env.NODE_ENV === 'production';
+
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     store: sessionStore,
-    // cookie: {
-    //     secure: true,
-    //     sameSite: 'None'
-    // }
+    cookie: {
+        // secure: isProduction,
+        // sameSite: isProduction ? 'None' : 'Lax'
+        secure: true,
+        sameSite: 'None'
+    }
 }));
 
 app.use(passport.authenticate('session'));
