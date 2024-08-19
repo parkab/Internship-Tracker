@@ -14,7 +14,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 3000;
 
 const dbUser = process.env.MONGO_DB_USER;
 const dbPassword = process.env.MONGO_DB_PASSWORD;
@@ -59,6 +59,9 @@ app.use(cors({
     credentials: true
 }));
 
+app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`);
+});
 //const isProduction = process.env.NODE_ENV === 'production';
 
 app.use(session({
@@ -69,8 +72,8 @@ app.use(session({
     cookie: {
         // secure: isProduction,
         // sameSite: isProduction ? 'None' : 'Lax'
-        secure: true,
-        sameSite: 'None'
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax'
     }
 }));
 
@@ -300,9 +303,5 @@ app.get('/internships', isAuthenticated, (req, res, next) => {
     //res.json({'internships': internships});
     //res.send('express said hi');
 })
-
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
-  })
 
 module.exports = app;
