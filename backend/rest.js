@@ -19,8 +19,6 @@ const port = process.env.PORT || 4000;
 const dbUser = process.env.MONGO_DB_USER;
 const dbPassword = process.env.MONGO_DB_PASSWORD;
 
-
-
 mongoose.connect('mongodb+srv://' + dbUser + ':' + dbPassword + '@internshiptracker.or0zw.mongodb.net/internshipsdb?retryWrites=true&w=majority&appName=internshiptracker')
     .then(() => {
         console.log("connected to mongodb")
@@ -296,11 +294,15 @@ app.get('/internships', isAuthenticated, (req, res, next) => {
         res.json({'internships': data});
     })
     .catch(() =>{
-        console.log("failed to retrieve entries");
+        console.log("Failed to retrieve entries");
     })
     
     //res.json({'internships': internships});
     //res.send('express said hi');
 })
+
+app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`)
+  })
 
 module.exports = app;
