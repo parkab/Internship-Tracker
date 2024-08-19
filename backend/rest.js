@@ -65,10 +65,10 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     store: sessionStore,
-    cookie: {
-        secure: true,
-        sameSite: 'None'
-    }
+    // cookie: {
+    //     secure: true,
+    //     sameSite: 'None'
+    // }
 }));
 
 app.use(passport.authenticate('session'));
@@ -150,6 +150,13 @@ app.post('/login', (req, res, next) => {
             // Successful login
             console.log('login successful!');
             console.log('User:', req.user);
+
+            res.cookie('connect.sid', req.sessionID, {
+                //httpOnly: true, // client-side js cannot access cookie
+                secure: true, // cookie only sent on https
+                sameSite: 'None' // cross site cookies
+            });
+
             return res.status(200).json({ message: 'Login successful', user: user });
         });
     })(req, res, next);
