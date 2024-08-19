@@ -64,7 +64,11 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    store: sessionStore
+    store: sessionStore,
+    cookie: {
+        secure: true,
+        sameSite: 'None'
+    }
 }));
 
 app.use(passport.authenticate('session'));
