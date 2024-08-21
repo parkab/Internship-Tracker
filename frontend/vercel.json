@@ -3,7 +3,7 @@
     "builds": [
       {
         "src": "src/main.ts",
-        "use": "@vercel/node",
+        "use": "@vercel/static-build",
         "config": {
           "distDir": "dist"
         }
@@ -12,7 +12,7 @@
     "routes": [
       {
         "src": "/(.*)",
-        "dest": "/src/index.html"
+        "dest": "/dist/index.html"
       }
     ]
   }
