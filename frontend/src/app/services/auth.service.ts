@@ -7,7 +7,8 @@ import { AuthResponse } from './auth-response.interface';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000';
+  //private apiUrl = 'http://localhost:3000';
+  private apiUrl = 'https://internship-tracker-q5u0.onrender.com';
 
   constructor(private http: HttpClient) {}
 
