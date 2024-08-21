@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const InternshipEntryModel = require('./entry-schema');
+const InternshipEntryModel = require('./entry-schema.js');
 const mongoose = require('mongoose');
 
 const passport = require('passport');
@@ -62,7 +62,7 @@ app.use(cors({
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 });
-//const isProduction = process.env.NODE_ENV === 'production';
+// const isProduction = process.env.NODE_ENV === 'production';
 
 app.use(session({
     secret: process.env.SESSION_SECRET,
