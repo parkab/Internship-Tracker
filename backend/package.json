@@ -2,7 +2,9 @@
     "name": "internship-tracker",
     "version": "0.0.0",
     "scripts": {
-      "serve:ssr:internship-tracker": "node dist/internship-tracker/server/server.mjs"
+      "serve:ssr:internship-tracker": "node dist/internship-tracker/server/server.mjs",
+      "build": "echo 'No build step necessary for backend'",
+      "start": "node src/server.js"
     },
     "private": true,
     "dependencies": {
