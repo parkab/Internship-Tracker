@@ -1,7 +1,6 @@
 {
   "version": 2,
   "builds": [],
-  "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
   "headers": {
     "Access-Control-Allow-Origin": "*"
   },
