@@ -8,6 +8,7 @@ import { Internship } from "./internship.model";
 export class InternshipDataService{
     // [x: string]: any;
     // all local paths used to be: http://localhost:3000
+    // new backend path: https://internship-tracker-q5u0.onrender.com
 
     public maxId: number;
     
