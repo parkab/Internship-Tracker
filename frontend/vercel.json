@@ -2,18 +2,34 @@
     "version": 2,
     "builds": [
       {
-        "src": "../backend/server.js",
-        "use": "@vercel/node"
+        "src": "src/main.ts",
+        "use": "@vercel/node",
+        "config": {
+          "includeFiles": [
+            "src/**"
+          ],
+          "engine": "14"
+        }
+      },
+      {
+        "src": "src/main.server.ts",
+        "use": "@vercel/node",
+        "config": {
+          "includeFiles": [
+            "src/**"
+          ],
+          "engine": "14"
+        }
+      },
+      {
+        "src": "dist/**",
+        "use": "@vercel/static"
       }
     ],
     "routes": [
       {
         "src": "/(.*)",
-        "dest": "../backend/server.js",
-        "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-        "headers": {
-          "Access-Control-Allow-Origin": "*"
-        }
+        "dest": "/src/index.html"
       }
     ]
   }
