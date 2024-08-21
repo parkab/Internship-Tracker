@@ -4,11 +4,17 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "./index.js",
+      "dest": "/src/index.html",
       "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
       "headers": {
         "Access-Control-Allow-Origin": "*"
       }
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/src/index.html"
     }
   ]
 }
