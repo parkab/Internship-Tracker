@@ -5,25 +5,8 @@
         "src": "src/main.ts",
         "use": "@vercel/node",
         "config": {
-          "includeFiles": [
-            "src/**"
-          ],
-          "engine": "14"
+          "distDir": "dist"
         }
-      },
-      {
-        "src": "src/main.server.ts",
-        "use": "@vercel/node",
-        "config": {
-          "includeFiles": [
-            "src/**"
-          ],
-          "engine": "14"
-        }
-      },
-      {
-        "src": "dist/**",
-        "use": "@vercel/static"
       }
     ],
     "routes": [
