@@ -11,7 +11,8 @@ export const routes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     {path:"dashboard", component: InternshipsComponent},
     {path:"data-entry", component: InternshipFormComponent},
-    {path:"edit/:id", component: InternshipFormComponent}
+    {path:"edit/:id", component: InternshipFormComponent},
+    { path: '**', component: LandingPageComponent }
 ];
 
 @NgModule({
