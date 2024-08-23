@@ -1,15 +1,10 @@
 {
-    "version": 2,
     "builds": [
       {
-        "src": "package.json",
-        "use": "@vercel/node"
+        "src": "dist/internship-tracker/**/*",
+        "use": "@vercel/static"
       }
     ],
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "server.ts"
-      }
-    ]
+    "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
   }
+  
