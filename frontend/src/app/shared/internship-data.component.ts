@@ -10,6 +10,9 @@ export class InternshipDataService{
     // all local paths used to be: http://localhost:3000
     // new backend path: https://internship-tracker-q5u0.onrender.com
 
+    //private url = 'http://localhost:3000';
+    private url = 'https://internship-tracker-q5u0.onrender.com';
+
     public maxId: number;
     
     constructor(private http: HttpClient, private authService: AuthService){}
@@ -30,7 +33,7 @@ export class InternshipDataService{
     onDelete(index: string){
         // this.internships.splice(index, 1);
         // this.internshipSubject.next(this.internships);
-        this.http.delete<{message: string}>('https://internship-tracker-q5u0.onrender.com/remove-internship/' + index, {withCredentials: true}).subscribe((jsonData) => {
+        this.http.delete<{message: string}>(this.url + '/remove-internship/' + index, {withCredentials: true}).subscribe((jsonData) => {
             console.log(jsonData.message);
             this.getInternshipEntries();
         })
@@ -50,7 +53,7 @@ export class InternshipDataService{
             internship.user = userId; // Add user ID to the internship
         }
 
-        this.http.post<{message: string}>('https://internship-tracker-q5u0.onrender.com/add-internship', internship, {withCredentials: true}).subscribe((res) => {
+        this.http.post<{message: string}>(this.url + '/add-internship', internship, {withCredentials: true}).subscribe((res) => {
             console.log(internship);
             this.getInternshipEntries();
         })
@@ -74,7 +77,7 @@ export class InternshipDataService{
     }
 
     getInternshipEntries(){
-        this.http.get<{internships: any}>('https://internship-tracker-q5u0.onrender.com/internships', {withCredentials: true})
+        this.http.get<{internships: any}>(this.url + '/internships', {withCredentials: true})
 
         
         .pipe(map((responseData) => {
@@ -100,7 +103,7 @@ export class InternshipDataService{
     onUpdateInternship(id: string, internship: Internship){
         // this.internships[paramId] = internship;
         // this.internshipSubject.next(this.internships);
-        this.http.put<{message: string}>('https://internship-tracker-q5u0.onrender.com/update-internship/' + id, internship, {withCredentials: true}).subscribe((jsonData) => {
+        this.http.put<{message: string}>(this.url + '/update-internship/' + id, internship, {withCredentials: true}).subscribe((jsonData) => {
             console.log(jsonData.message);
             this.getInternshipEntries();
         })

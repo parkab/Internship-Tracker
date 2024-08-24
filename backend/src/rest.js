@@ -52,23 +52,10 @@ const allowedOrigins = [
 app.use(cors({
     origin: function (origin, callback) {
         console.log("Origin1: ", origin);
-        if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+        if (!origin || allowedOrigins.includes(origin)) {
             callback(null, true);
         } else {
             callback(new Error('Not allowed by CORS1'));
-        }
-    },
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    credentials: true
-}));
-
-app.options('*', cors({
-    origin: function (origin, callback) {
-        console.log("Origin2: ", origin);
-        if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS2'));
         }
     },
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -102,19 +89,17 @@ app.use(bodyParser.json());
 
 passportConfig(passport);
 
-
-
-app.use((req, res, next) =>{
-    res.setHeader('Access-Control-Allow-Origin', 'https://internship-tracker-git-main-parkabs-projects.vercel.app');
-    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    res.setHeader('Access-Control-Allow-Credentials', 'true');
+// app.use((req, res, next) =>{
+//     res.setHeader('Access-Control-Allow-Origin', 'https://internship-tracker-git-main-parkabs-projects.vercel.app');
+//     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+//     res.setHeader('Access-Control-Allow-Credentials', 'true');
     
-    console.log('Session:', req.session);
-    console.log('User:', req.user);
+//     console.log('Session:', req.session);
+//     console.log('User:', req.user);
 
-    next();
-})
+//     next();
+// })
 
 // app.get('/max-id', (req, res) =>{
 //     var max = 0;
