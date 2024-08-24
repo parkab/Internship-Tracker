@@ -1,8 +1,0 @@
-{
-  "routes": [
-    "/dashboard",
-    "/data-entry",
-    "/login",
-    "/register"
-  ]
-}
