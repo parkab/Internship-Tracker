@@ -43,21 +43,22 @@ const allowedOrigins = [
     'https://internship-tracker-git-main-parkabs-projects.vercel.app'
 ];
 
-// app.use(cors({
-//     origin: 'http://localhost:4200',
-//     credentials: true
-// }));
-
 app.use(cors({
-    origin: function (origin, callback) {
-        if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
+    origin: allowedOrigins,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     credentials: true
 }));
+
+// app.use(cors({
+//     origin: function (origin, callback) {
+//         if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+//             callback(null, true);
+//         } else {
+//             callback(new Error('Not allowed by CORS'));
+//         }
+//     },
+//     credentials: true
+// }));
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
