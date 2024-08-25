@@ -184,12 +184,12 @@ app.post('/login', (req, res, next) => {
             console.log('login successful!');
             console.log('User:', req.user);
 
-            res.cookie('connect.sid', req.sessionID, {
-                httpOnly: true, // client-side js cannot access cookie
-                secure: true, // cookie only sent on https
-                sameSite: 'None', // cross site cookies
-               // domain: '.onrender.com'
-            });
+            // res.cookie('connect.sid', req.sessionID, {
+            //     httpOnly: true, // client-side js cannot access cookie
+            //     secure: true, // cookie only sent on https
+            //     sameSite: 'None', // cross site cookies
+            //    // domain: '.onrender.com'
+            // });
 
             return res.status(200).json({ message: 'Login successful', user: user });
         });
@@ -317,6 +317,8 @@ app.put('/update-internship/:id', (req, res) =>{
 })
 
 app.get('/internships', isAuthenticated, (req, res, next) => {
+
+    //console.dir(req, {depth:null});
 
     const userId = req.user._id;
 
