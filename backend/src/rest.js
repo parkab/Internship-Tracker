@@ -40,7 +40,8 @@ const sessionStore = MongoStore.create({
 
 const allowedOrigins = [
     'http://localhost:4200',
-    'https://internship-tracker-git-main-parkabs-projects.vercel.app'
+    'https://internship-tracker-git-main-parkabs-projects.vercel.app',
+    'https://internshiptracker.onrender.com/'
 ];
 
 // app.use(cors({
