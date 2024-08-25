@@ -63,6 +63,18 @@ app.use(cors({
     credentials: true
 }));
 
+app.options('*', cors({
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    credentials: true
+}));
+
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 });
@@ -160,9 +172,10 @@ app.post('/login', (req, res, next) => {
             console.log('User:', req.user);
 
             res.cookie('connect.sid', req.sessionID, {
-                //httpOnly: true, // client-side js cannot access cookie
+                httpOnly: true, // client-side js cannot access cookie
                 secure: true, // cookie only sent on https
-                sameSite: 'None' // cross site cookies
+                sameSite: 'None', // cross site cookies
+                domain: 'internshiptracker.onrender.com'
             });
 
             return res.status(200).json({ message: 'Login successful', user: user });
