@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { map, Subject } from "rxjs";
+import { catchError, map, of, Subject } from "rxjs";
 import { AuthService } from "../services/auth.service";
 import { Internship } from "./internship.model";
 
@@ -33,7 +33,7 @@ export class InternshipDataService{
     onDelete(index: string){
         // this.internships.splice(index, 1);
         // this.internshipSubject.next(this.internships);
-        this.http.delete<{message: string}>(this.url + '/remove-internship/' + index, {withCredentials: true}).subscribe((jsonData) => {
+        this.http.delete<{message: string}>(this.url + '/remove-internship/' + index, {headers: this.getHeaders(), withCredentials: true}).subscribe((jsonData) => {
             console.log(jsonData.message);
             this.getInternshipEntries();
         })
@@ -47,13 +47,13 @@ export class InternshipDataService{
         // this.internships.push(internship);
         // this.internshipSubject.next(this.internships);
 
-        const userId = this.authService.getToken();
+        // const userId = this.authService.getToken();
 
-        if (userId) {
-            internship.user = userId; // Add user ID to the internship
-        }
+        // if (userId) {
+        //     internship.user = userId; // Add user ID to the internship
+        // }
 
-        this.http.post<{message: string}>(this.url + '/add-internship', internship, {withCredentials: true}).subscribe((res) => {
+        this.http.post<{message: string}>(this.url + '/add-internship', internship, {headers: this.getHeaders(), withCredentials: true}).subscribe((res) => {
             console.log(internship);
             this.getInternshipEntries();
         })
@@ -77,9 +77,9 @@ export class InternshipDataService{
     }
 
     getInternshipEntries(){
-        this.http.get<{internships: any}>(this.url + '/internships', {withCredentials: true})
-
         
+        this.http.get<{internships: any}>(this.url + '/internships', {headers: this.getHeaders(), withCredentials: true})
+
         .pipe(map((responseData) => {
             return responseData.internships.map((entry: {date: string; status: string; company: string; role: string; notes: string; _id: string; user: string;}) => {
                 return{
@@ -92,7 +92,13 @@ export class InternshipDataService{
                     user: entry.user
                 }
             })
-        }))
+        }),
+        catchError(error => {
+            console.error('Error fetching internships:', error);
+            // Handle the error, e.g., return an empty array or show a notification
+            return of([]); // Returns an observable with an empty array as fallback
+        })
+        )
 
         .subscribe((jsonData) => {
             this.internships = jsonData;
@@ -103,7 +109,7 @@ export class InternshipDataService{
     onUpdateInternship(id: string, internship: Internship){
         // this.internships[paramId] = internship;
         // this.internshipSubject.next(this.internships);
-        this.http.put<{message: string}>(this.url + '/update-internship/' + id, internship, {withCredentials: true}).subscribe((jsonData) => {
+        this.http.put<{message: string}>(this.url + '/update-internship/' + id, internship, {headers: this.getHeaders(), withCredentials: true}).subscribe((jsonData) => {
             console.log(jsonData.message);
             this.getInternshipEntries();
         })
