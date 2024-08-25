@@ -175,7 +175,7 @@ app.post('/login', (req, res, next) => {
                 httpOnly: true, // client-side js cannot access cookie
                 secure: true, // cookie only sent on https
                 sameSite: 'None', // cross site cookies
-                domain: 'internshiptracker.onrender.com'
+                //domain: 'internshiptracker.onrender.com'
             });
 
             return res.status(200).json({ message: 'Login successful', user: user });
