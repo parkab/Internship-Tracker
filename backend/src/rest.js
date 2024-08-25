@@ -50,10 +50,22 @@ const allowedOrigins = [
 //     credentials: true
 // }));
 
+const allowedDomain = 'onrender.com';
+
+function isSubdomain(origin) {
+    if (!origin) return false;
+
+    const url = new URL(origin);
+    const hostname = url.hostname;
+
+    // checking if the hostname matches the allowed domain or its subdomains
+    return hostname.endsWith(allowedDomain) && (hostname !== allowedDomain);
+}
+
 app.use(cors({
     origin: function (origin, callback) {
         console.log("Origin1: ", origin);
-        if (!origin || allowedOrigins.includes(origin)) {
+        if (!origin || allowedOrigins.includes(origin) || isSubdomain(origin)) {
             callback(null, true);
         } else {
             callback(new Error('Not allowed by CORS1'));
@@ -89,7 +101,8 @@ app.use(session({
         // secure: isProduction,
         // sameSite: isProduction ? 'None' : 'Lax'
         secure: process.env.NODE_ENV === 'production',
-        sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax'
+        sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+        domain: '.onrender.com'
     }
 }));
 
@@ -97,8 +110,8 @@ app.use(passport.authenticate('session'));
 
 app.use(bodyParser.json());
 
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
 passportConfig(passport);
 
@@ -175,7 +188,8 @@ app.post('/login', (req, res, next) => {
                 httpOnly: true, // client-side js cannot access cookie
                 secure: true, // cookie only sent on https
                 sameSite: 'None', // cross site cookies
-                domain: '.onrender.com'
+                domain: '.onrender.com',
+                path: '/',
             });
 
             return res.status(200).json({ message: 'Login successful', user: user });
