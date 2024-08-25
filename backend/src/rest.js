@@ -303,7 +303,7 @@ app.put('/update-internship/:id', (req, res) =>{
     // internships[index] = {};
 })
 
-app.get('/internships', (req, res, next) => {
+app.get('/internships', isAuthenticated, (req, res, next) => {
 
     const userId = req.user._id;
 
