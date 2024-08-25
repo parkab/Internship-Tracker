@@ -102,7 +102,7 @@ app.use(session({
         // sameSite: isProduction ? 'None' : 'Lax'
         secure: process.env.NODE_ENV === 'production',
         sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
-        domain: '.onrender.com'
+        //domain: '.onrender.com'
     }
 }));
 
