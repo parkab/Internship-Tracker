@@ -106,12 +106,12 @@ app.use(session({
     }
 }));
 
-//app.use(passport.authenticate('session'));
+app.use(passport.authenticate('session'));
 
 app.use(bodyParser.json());
 
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 passportConfig(passport);
 
