@@ -92,6 +92,7 @@ app.listen(port, () => {
 });
 // const isProduction = process.env.NODE_ENV === 'production';
 
+app.use(bodyParser.json());
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
@@ -106,12 +107,10 @@ app.use(session({
     }
 }));
 
-app.use(passport.authenticate('session'));
+//app.use(passport.authenticate('session'));
 
-app.use(bodyParser.json());
-
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
 passportConfig(passport);
 
@@ -184,12 +183,12 @@ app.post('/login', (req, res, next) => {
             console.log('login successful!');
             console.log('User:', req.user);
 
-            // res.cookie('connect.sid', req.sessionID, {
-            //     httpOnly: true, // client-side js cannot access cookie
-            //     secure: true, // cookie only sent on https
-            //     sameSite: 'None', // cross site cookies
-            //    // domain: '.onrender.com'
-            // });
+            res.cookie('connect.sid', req.sessionID, {
+                httpOnly: true, // client-side js cannot access cookie
+                secure: true, // cookie only sent on https
+                sameSite: 'None', // cross site cookies
+                //domain: '.onrender.com'
+            });
 
             return res.status(200).json({ message: 'Login successful', user: user });
         });
