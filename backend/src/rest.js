@@ -106,7 +106,7 @@ app.use(session({
 
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'Lax',
-        domain: '.onrender.com',
+        //domain: '.onrender.com',
     }
 }));
 
@@ -242,7 +242,7 @@ app.post('/login', async (req, res, next) => {
                     // httpOnly: true,
                     secure: process.env.NODE_ENV === 'production',
                     sameSite: 'Lax',
-                    domain: '.onrender.com',
+                    //domain: '.onrender.com',
                 });
 
                 return res.status(200).json({ message: 'Login successful', user: { id: user._id, email: user.email } });
