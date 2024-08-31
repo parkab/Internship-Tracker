@@ -76,34 +76,33 @@ export class InternshipDataService{
         //return this.http.get<Internship>(`http://localhost:3000/internships/${id}`);
     }
 
-    getInternshipEntries(){
-        
-        this.http.get<{internships: any}>(this.url + '/internships', {headers: this.getHeaders(), withCredentials: true})
-
-        .pipe(map((responseData) => {
-            return responseData.internships.map((entry: {date: string; status: string; company: string; role: string; notes: string; _id: string; user: string;}) => {
-                return{
-                    date: entry.date,
-                    status: entry.status,
-                    company: entry.company,
-                    role: entry.role,
-                    notes: entry.notes,
-                    _id: entry._id,
-                    user: entry.user
-                }
-            })
-        }),
-        catchError(error => {
-            console.error('Error fetching internships:', error);
-            // Handle the error, e.g., return an empty array or show a notification
-            return of([]); // Returns an observable with an empty array as fallback
-        })
-        )
-
-        .subscribe((jsonData) => {
-            this.internships = jsonData;
-            this.internshipSubject.next(this.internships);
-        })
+    getInternshipEntries() {
+        this.http.get<{ internships: any }>(this.url + '/internships', { headers: this.getHeaders(), withCredentials: true })
+            .pipe(
+                map((responseData) => {
+                    if (!responseData.internships) {
+                        console.warn("No internships found in response data.");
+                        return [];
+                    }
+                    return responseData.internships.map((entry: { date: string; status: string; company: string; role: string; notes: string; _id: string; user: string; }) => ({
+                        date: entry.date,
+                        status: entry.status,
+                        company: entry.company,
+                        role: entry.role,
+                        notes: entry.notes,
+                        _id: entry._id,
+                        user: entry.user
+                    }));
+                }),
+                catchError(error => {
+                    console.error('Error fetching internships:', error);
+                    return of([]); // Return an observable with an empty array as fallback
+                })
+            )
+            .subscribe((jsonData) => {
+                this.internships = jsonData;
+                this.internshipSubject.next(this.internships);
+            });
     }
 
     onUpdateInternship(id: string, internship: Internship){

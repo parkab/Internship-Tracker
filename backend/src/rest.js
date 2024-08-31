@@ -372,21 +372,24 @@ app.put('/update-internship/:id', (req, res) =>{
 })
 
 app.get('/internships', isAuthenticated, (req, res, next) => {
-
-    //console.dir(req, {depth:null});
+    if (!req.user) {
+        console.error("No user found in request.");
+        return res.status(401).json({ message: "Unauthorized" });
+    }
 
     const userId = req.user._id;
 
-    InternshipEntryModel.find({user: userId})
-    .then((data) => {
-        res.json({'internships': data});
-    })
-    .catch(() =>{
-        console.log("Failed to retrieve entries");
-    })
-    
-    //res.json({'internships': internships});
-    //res.send('express said hi');
-})
+    InternshipEntryModel.find({ user: userId })
+        .then((data) => {
+            if (!data || data.length === 0) {
+                console.warn(`No internship entries found for user: ${userId}`);
+            }
+            res.json({ internships: data });
+        })
+        .catch((error) => {
+            console.error("Failed to retrieve entries:", error);
+            res.status(500).json({ message: "Server error while fetching internships" });
+        });
+});
 
 module.exports = app;
