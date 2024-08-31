@@ -101,8 +101,11 @@ app.use(session({
     cookie: {
         // secure: isProduction,
         // sameSite: isProduction ? 'None' : 'Lax'
+        // secure: process.env.NODE_ENV === 'production',
+        // sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+
         secure: process.env.NODE_ENV === 'production',
-        sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+        sameSite: 'Lax',
         domain: '.onrender.com',
     }
 }));
@@ -236,9 +239,9 @@ app.post('/login', async (req, res, next) => {
 
                 // Set a secure cookie
                 res.cookie('connect.sid', req.sessionID, {
-                    httpOnly: true,
+                    // httpOnly: true,
                     secure: process.env.NODE_ENV === 'production',
-                    sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+                    sameSite: 'Lax',
                     domain: '.onrender.com',
                 });
 
