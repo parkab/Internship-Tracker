@@ -151,10 +151,17 @@ const hashPassword = (password, salt, callback) => {
     });
 };
 
+// const verifyPassword = (password, salt, hashedPassword, callback) => {
+//     hashPassword(password, salt, (err, hash) => {
+//         if (err) return callback(err);
+//         callback(null, hash === hashedPassword);
+//     });
+// };
+
 const verifyPassword = (password, salt, hashedPassword, callback) => {
-    hashPassword(password, salt, (err, hash) => {
+    scrypt(password, salt, 64, (err, derivedKey) => {
         if (err) return callback(err);
-        callback(null, hash === hashedPassword);
+        callback(null, derivedKey.toString('hex') === hashedPassword);
     });
 };
 
@@ -167,32 +174,81 @@ function isAuthenticated(req, res, next) {
 }
 
 // Routes
-app.post('/login', (req, res, next) => {
-    passport.authenticate('local', (err, user, info) => {
-        if (err) {
-            return next(err);
-        }
+// app.post('/login', (req, res, next) => {
+//     passport.authenticate('local', (err, user, info) => {
+//         if (err) {
+//             return next(err);
+//         }
+//         if (!user) {
+//             return res.status(400).json({ message: info.message || 'Invalid email or password' });
+//         }
+//         req.login(user, (err) => {
+//             if (err) {
+//                 return res.status(500).json({ message: 'Server error', error: err });
+//             }
+//             // Successful login
+//             console.log('login successful!');
+//             console.log('User:', req.user);
+
+//             res.cookie('connect.sid', req.sessionID, {
+//                 httpOnly: true, // client-side js cannot access cookie
+//                 secure: true, // cookie only sent on https
+//                 sameSite: 'None', // cross site cookies
+//                 //domain: '.onrender.com'
+//             });
+
+//             return res.status(200).json({ message: 'Login successful', user: user });
+//         });
+//     })(req, res, next);
+// });
+
+app.post('/login', async (req, res, next) => {
+    const { email, password } = req.body;
+
+    try {
+        // Find the user by email
+        const user = await User.findOne({ email });
         if (!user) {
-            return res.status(400).json({ message: info.message || 'Invalid email or password' });
+            return res.status(400).json({ message: 'Invalid email or password' });
         }
-        req.login(user, (err) => {
+
+        // Verify password using the logic in passport.js
+        verifyPassword(password, user.salt, user.password, (err, isMatch) => {
             if (err) {
-                return res.status(500).json({ message: 'Server error', error: err });
+                console.error('Error during password verification:', err);
+                return res.status(500).json({ message: 'Server error', error: err.message });
             }
-            // Successful login
-            console.log('login successful!');
-            console.log('User:', req.user);
 
-            res.cookie('connect.sid', req.sessionID, {
-                httpOnly: true, // client-side js cannot access cookie
-                secure: true, // cookie only sent on https
-                sameSite: 'None', // cross site cookies
-                //domain: '.onrender.com'
+            if (!isMatch) {
+                return res.status(400).json({ message: 'Invalid email or password' });
+            }
+
+            // Manually login the user
+            req.login(user, (err) => {
+                if (err) {
+                    console.error('Error during login:', err);
+                    return res.status(500).json({ message: 'Server error', error: err.message });
+                }
+
+                // Successful login
+                console.log('Login successful!');
+                console.log('User:', req.user);
+
+                // Set a secure cookie
+                res.cookie('connect.sid', req.sessionID, {
+                    httpOnly: true,
+                    secure: process.env.NODE_ENV === 'production',
+                    sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+                });
+
+                return res.status(200).json({ message: 'Login successful', user: { id: user._id, email: user.email } });
             });
-
-            return res.status(200).json({ message: 'Login successful', user: user });
         });
-    })(req, res, next);
+
+    } catch (err) {
+        console.error('Error during login process:', err);
+        return res.status(500).json({ message: 'Server error', error: err.message });
+    }
 });
     // const { email, password } = req.body;
 
