@@ -5,7 +5,7 @@ const express = require('./rest.js');
 
 const server = http.createServer(express);
 
-const port = process.env.PORT || 3000;
+const port = 3000;
 server.listen(port);
 
 const url = `https://internship-tracker-q5u0.onrender.com/`;
