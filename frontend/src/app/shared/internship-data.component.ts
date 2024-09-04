@@ -10,8 +10,8 @@ export class InternshipDataService{
     // all local paths used to be: http://localhost:3000
     // new backend path: https://internship-tracker-q5u0.onrender.com
 
-    //private url = 'http://localhost:3000';
-    private url = 'https://internship-tracker-q5u0.onrender.com';
+    private url = 'http://localhost:3000';
+    //private url = 'https://internship-tracker-q5u0.onrender.com';
 
     public maxId: number;
     

@@ -209,7 +209,7 @@ app.post('/login', async (req, res, next) => {
     const { email, password } = req.body;
 
     try {
-        // Find the user by email
+        // Find user by email
         const user = await User.findOne({ email });
         if (!user) {
             return res.status(400).json({ message: 'Invalid email or password' });
