@@ -105,7 +105,7 @@ app.use(session({
         // sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
 
         secure: process.env.NODE_ENV === 'production',
-        sameSite: 'Lax',
+        sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
         //domain: '.onrender.com',
     }
 }));
@@ -241,7 +241,7 @@ app.post('/login', async (req, res, next) => {
                 res.cookie('connect.sid', req.sessionID, {
                     // httpOnly: true,
                     secure: process.env.NODE_ENV === 'production',
-                    sameSite: 'Lax',
+                    sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
                     //domain: '.onrender.com',
                 });
 

@@ -4,7 +4,9 @@ const axios = require('axios');
 const express = require('./rest.js');
 
 const server = http.createServer(express);
-server.listen(3000);
+
+const port = process.env.PORT || 3000;
+server.listen(port);
 
 const url = `https://internship-tracker-q5u0.onrender.com/`;
 const interval = 30000;

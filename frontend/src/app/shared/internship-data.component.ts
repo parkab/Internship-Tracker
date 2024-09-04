@@ -77,6 +77,9 @@ export class InternshipDataService{
     }
 
     getInternshipEntries() {
+
+        console.log("Starting to fetch internship entries...");
+        
         this.http.get<{ internships: any }>(this.url + '/internships', { headers: this.getHeaders(), withCredentials: true })
             .pipe(
                 map((responseData) => {
@@ -96,12 +99,17 @@ export class InternshipDataService{
                 }),
                 catchError(error => {
                     console.error('Error fetching internships:', error);
-                    return of([]); // Return an observable with an empty array as fallback
+                    if (error.status === 401) {
+                        console.error('Authentication failed in getInternshipEntries()');
+                    }
+                    return of([]);
                 })
             )
             .subscribe((jsonData) => {
                 this.internships = jsonData;
                 this.internshipSubject.next(this.internships);
+            }, error => {
+                console.error('subscription error', error);
             });
     }
 
