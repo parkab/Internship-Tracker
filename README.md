@@ -1,10 +1,15 @@
 # InternshipTracker
 
+Hello, welcome to InternshipTracker! Below is a video demonstrating how the app works locally with registration, login, and creating, receiving, updating, and deleting entries:
+
+https://github.com/user-attachments/assets/ee0aca69-2548-478f-84e1-f41dbc99dfb8
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.5.
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Run `ng serve` in the "frontend" folder for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Run `node src/server.js` in the "backend" folder to allow for the backend to properly add and modify user data.
 
 ## Code scaffolding
 
